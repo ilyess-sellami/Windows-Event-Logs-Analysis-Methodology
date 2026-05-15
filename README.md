@@ -1,5 +1,3 @@
-# Windows Event Logs Analysis Methodology
-
 ![Banner Image](docs/banner-image.png)
 
 A structured DFIR guide focused on identifying, collecting, and analyzing Windows forensic artifacts to support incident response, threat hunting, and malware investigations.

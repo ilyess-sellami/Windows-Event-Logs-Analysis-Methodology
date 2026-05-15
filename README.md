@@ -8,8 +8,7 @@ A structured DFIR guide focused on identifying, collecting, and analyzing Window
 
 ```bash
 Windows-Artifact-Analysis-Playbook/
-│
-├── [01-windows-forensic-overview.md](01-windows-forensic-overview.md)
+├── 01-windows-forensic-overview.md
 ├── 02-file-system-artifacts.md
 ├── 03-execution-artifacts.md
 ├── 04-persistence-mechanisms.md

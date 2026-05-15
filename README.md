@@ -1,3 +1,5 @@
+# Windows Event Logs Analysis Methodology
+
 ![Banner Image](docs/banner-image.png)
 
 ## Overview 

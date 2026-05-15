@@ -71,3 +71,24 @@ Each event contains multiple fields useful during investigations. Typical fields
 | Computer  | Hostname                                    |
 | Level     | Information, Warning, Error                 |
 | Message   | Detailed event description                  |
+
+---
+
+## Understanding Event IDs
+
+Each Windows event contains an Event ID that identifies the type of activity that occurred. Examples:
+
+| Event ID | Meaning                         |
+| -------- | ------------------------------- |
+| 4624     | Successful logon                |
+| 4625     | Failed logon                    |
+| 4688     | Process creation                |
+| 7045     | New service installed           |
+| 4104     | PowerShell script block logging |
+| 1102     | Event logs cleared              |
+
+Event IDs are extremely important in SOC operations because detections and alerts are usually built around them. For example:
+
+- Multiple ``4625`` events from the same source may indicate brute-force activity.
+- A ``7045`` event may indicate malware persistence through service installation.
+- A ``1102`` event is often considered highly suspicious because attackers sometimes clear logs to hide evidence.

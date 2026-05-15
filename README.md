@@ -1,6 +1,8 @@
-# Windows Event Logs Analysis Methodology
+<h1 align="center"> Windows Event Logs Analysis Methodology </h1>
 
-![Banner Image](docs/banner-image.png)
+<p align="center">
+  <img src="docs/banner-image.png" alt="Windows Event Logs Analysis Methodology Banner" />
+</p>
 
 ## Overview 
 

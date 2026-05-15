@@ -39,9 +39,45 @@ The following Event IDs are commonly analyzed during investigations:
 
 ---
 
+## Event ID 4624 — Successful Logon
+
+This event indicates that a user successfully authenticated to the system.
+
+Important fields:
+
+| Field                  | Description              |
+| ---------------------- | ------------------------ |
+| Account Name           | Username involved        |
+| Logon Type             | Type of access           |
+| Source Network Address | Remote IP address        |
+| Workstation Name       | Source machine           |
+| Logon Process          | Authentication mechanism |
+
+---
+
+## Event ID 4625 — Failed Logon
+
+This event records failed authentication attempts.
+
+Important fields:
+
+| Field                  | Description               |
+| ---------------------- | ------------------------- |
+| Account Name           | Target username           |
+| Failure Reason         | Why authentication failed |
+| Source Network Address | Attacker IP               |
+| Status/Substatus       | Technical failure code    |
+
+This event is very important for detecting:
+
+- Brute-force attacks
+- Password spraying
+- Invalid account usage
+- Enumeration attempts
+
+---
+
 complete this sections:
-Event ID 4624 — Successful Logon
-Event ID 4625 — Failed Logon
 Event ID 4672 — Privileged Logon
 Understanding Logon Types
 High-Risk Logon Types 

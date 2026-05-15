@@ -1,1 +1,0 @@
-06-privilege-escalation-and-defense-evasion.md

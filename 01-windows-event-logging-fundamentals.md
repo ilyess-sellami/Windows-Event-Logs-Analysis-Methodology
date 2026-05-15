@@ -2,7 +2,7 @@
 
 ## Why Windows Event Logs Matter
 
-During a DFIR investigation, Windows Event Logs are one of the most valuable evidence sources available on a system. Almost every important activity performed on a Windows machine can generate logs, including user authentication, process execution, service creation, scheduled tasks, PowerShell activity, network connections, and security policy changes.
+During a DFIR investigation, **Windows Event Logs are one of the most valuable evidence sources available on a system**. Almost every important activity performed on a Windows machine can generate logs, including user authentication, process execution, service creation, scheduled tasks, PowerShell activity, network connections, and security policy changes.
 
 For SOC analysts and incident responders, event logs help answer critical questions such as:
 

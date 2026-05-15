@@ -37,3 +37,17 @@ The following Event IDs are commonly analyzed during investigations:
 | 4771     | Kerberos pre-authentication failed       |
 | 4776     | NTLM authentication attempt              |
 
+---
+
+complete this sections:
+Event ID 4624 — Successful Logon
+Event ID 4625 — Failed Logon
+Event ID 4672 — Privileged Logon
+Understanding Logon Types
+High-Risk Logon Types 
+Detecting Brute Force Activity 
+Detecting Password Spraying Activity
+Kerberos Authentication Events
+Detecting Lateral Movement
+Correlating Authentication Events
+

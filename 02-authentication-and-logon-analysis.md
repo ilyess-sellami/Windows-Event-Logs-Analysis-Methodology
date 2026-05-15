@@ -20,7 +20,10 @@ Authentication analysis is often the starting point for reconstructing the attac
 
 Most authentication-related events are found inside **Windows Logs → Security**
 
-![](docs/windows-security-event-logs.png)
+<p align="center">
+  <img src="docs/windows-security-event-logs.png" alt="Windows Security Event Logs" />
+</p>
+
 
 The following Event IDs are commonly analyzed during investigations:
 

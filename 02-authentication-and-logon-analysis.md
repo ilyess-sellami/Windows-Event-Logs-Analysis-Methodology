@@ -211,8 +211,8 @@ Suspicious indicators may include:
 - Logon Type 3 events across several systems
 - Logon Type 10 (RDP) access to sensitive servers
 - Administrative accounts authenticating outside normal working hours
-- Explicit credential usage events (4648)
-- Privileged logons (4672) appearing after remote access
+- Explicit credential usage events (``4648``)
+- Privileged logons (``4672``) appearing after remote access
 
 Example investigation scenario:
 

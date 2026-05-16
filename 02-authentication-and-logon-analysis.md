@@ -117,60 +117,14 @@ Logon Type is extremely important because it explains how access occurred.
 | 10         | RemoteInteractive (RDP)             |
 | 11         | CachedInteractive                   |
 
-#### Logon Type 2 — Interactive Logon
-
-This logon type is generated when a user logs directly into the machine using the keyboard and screen physically attached to the system.
-
-#### Logon Type 3 — Network Logon
-
-This is one of the most important logon types in DFIR investigations. It is generated during network-based authentication such as:
-
-- SMB access
-- Shared folder access
-- PsExec usage
-- Remote administrative activity
-
-Attackers frequently generate Logon Type 3 events during lateral movement inside the environment.
-
-#### Logon Type 4 — Batch Logon
-
-Generated when scheduled tasks or batch jobs execute under a user account. Investigators should verify whether the task is legitimate because attackers sometimes abuse scheduled tasks for persistence.
-
-#### Logon Type 5 — Service Logon
-
-This event occurs when a service starts under a specific account. Suspicious activity may include:
-
-- Newly created services
-- Services running under privileged accounts
-- Unknown or suspicious service names
-
-Attackers often abuse services to maintain persistence after compromise.
-
-#### Logon Type 7 — Unlock Workstation
-
-Generated when a user unlocks an already logged-in workstation. Usually considered normal user activity, but timestamps can still help investigators understand user presence during an incident timeline.
-
-#### Logon Type 8 — NetworkCleartext
-
-Occurs when credentials are sent in cleartext form to the authentication package. This does not always mean the password traveled unencrypted over the network, but it may still indicate insecure authentication methods.
-
-#### Logon Type 9 — NewCredentials
-
-Generated when a user runs a process using alternate credentials while keeping the current local identity.
-
-#### Logon Type 10 — RemoteInteractive (RDP)
-
-This logon type indicates Remote Desktop Protocol (RDP) access.
-
-RDP is heavily targeted by attackers because it provides direct interactive access to systems.
-
-Common suspicious indicators include:
-
-- External IP addresses
-- Login attempts outside business hours
-- Successful login after multiple failures
-- Rare administrator logins
-- RDP access to sensitive servers
+- **Logon Type 2 — Interactive Logon :** This logon type is generated when a user logs directly into the machine using the keyboard and screen physically attached to the system.
+- **Logon Type 3 — Network Logon :** This is one of the most important logon types in DFIR investigations, it's generated during network-based authentication such as SMB access, Shared folder access, PsExec usage and Remote administrative activity
+- **Logon Type 4 — Batch Logon :** Generated when scheduled tasks or batch jobs execute under a user account. Investigators should verify whether the task is legitimate because attackers sometimes abuse scheduled tasks for persistence.
+- **Logon Type 5 — Service Logon :** This event occurs when a service starts under a specific account, attackers often abuse services to maintain persistence after compromise.
+- **Logon Type 7 — Unlock Workstation :** Generated when a user unlocks an already logged-in workstation. Usually considered normal user activity, but timestamps can still help investigators understand user presence during an incident timeline.
+- **Logon Type 8 — NetworkCleartext :** Occurs when credentials are sent in cleartext form to the authentication package. This does not always mean the password traveled unencrypted over the network, but it may still indicate insecure authentication methods.
+- **Logon Type 9 — NewCredentials :** Generated when a user runs a process using alternate credentials while keeping the current local identity.
+- **Logon Type 10 — RemoteInteractive (RDP) :** This logon type indicates Remote Desktop Protocol (RDP) access. RDP is heavily targeted by attackers because it provides direct interactive access to systems.
 
 ---
 

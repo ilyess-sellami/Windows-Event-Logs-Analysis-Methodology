@@ -77,13 +77,195 @@ This event is very important for detecting:
 
 ---
 
-complete this sections:
-Event ID 4672 — Privileged Logon
-Understanding Logon Types
-High-Risk Logon Types 
-Detecting Brute Force Activity 
-Detecting Password Spraying Activity
-Kerberos Authentication Events
-Detecting Lateral Movement
-Correlating Authentication Events
+## Event ID 4672 — Privileged Logon
 
+Generated when a user logs in with administrative privileges.
+
+Privileges may include:
+
+- ``SeDebugPrivilege``
+- ``SeBackupPrivilege``
+- ``SeTakeOwnershipPrivilege``
+
+Important investigation questions:
+
+- Should this user normally have admin privileges?
+- Is the login source expected?
+- Did suspicious processes execute after the session started?
+
+Example correlation:
+
+- 4672 privileged session
+- 4688 cmd.exe
+- 7045 malicious service installed****
+
+---
+
+## Understanding Logon Types
+
+Logon Type is extremely important because it explains how access occurred.
+
+| Logon Type | Meaning                             |
+| ---------- | ----------------------------------- |
+| 2          | Interactive local logon             |
+| 3          | Network logon (SMB, shared folders) |
+| 4          | Batch logon                         |
+| 5          | Service logon                       |
+| 7          | Unlock workstation                  |
+| 8          | NetworkCleartext                    |
+| 9          | NewCredentials                      |
+| 10         | RemoteInteractive (RDP)             |
+| 11         | CachedInteractive                   |
+
+#### Logon Type 2 — Interactive Logon
+
+This logon type is generated when a user logs directly into the machine using the keyboard and screen physically attached to the system.
+
+#### Logon Type 3 — Network Logon
+
+This is one of the most important logon types in DFIR investigations. It is generated during network-based authentication such as:
+
+- SMB access
+- Shared folder access
+- PsExec usage
+- Remote administrative activity
+
+Attackers frequently generate Logon Type 3 events during lateral movement inside the environment.
+
+#### Logon Type 4 — Batch Logon
+
+Generated when scheduled tasks or batch jobs execute under a user account. Investigators should verify whether the task is legitimate because attackers sometimes abuse scheduled tasks for persistence.
+
+#### Logon Type 5 — Service Logon
+
+This event occurs when a service starts under a specific account. Suspicious activity may include:
+
+- Newly created services
+- Services running under privileged accounts
+- Unknown or suspicious service names
+
+Attackers often abuse services to maintain persistence after compromise.
+
+#### Logon Type 7 — Unlock Workstation
+
+Generated when a user unlocks an already logged-in workstation. Usually considered normal user activity, but timestamps can still help investigators understand user presence during an incident timeline.
+
+#### Logon Type 8 — NetworkCleartext
+
+Occurs when credentials are sent in cleartext form to the authentication package. This does not always mean the password traveled unencrypted over the network, but it may still indicate insecure authentication methods.
+
+#### Logon Type 9 — NewCredentials
+
+Generated when a user runs a process using alternate credentials while keeping the current local identity.
+
+#### Logon Type 10 — RemoteInteractive (RDP)
+
+This logon type indicates Remote Desktop Protocol (RDP) access.
+
+RDP is heavily targeted by attackers because it provides direct interactive access to systems.
+
+Common suspicious indicators include:
+
+- External IP addresses
+- Login attempts outside business hours
+- Successful login after multiple failures
+- Rare administrator logins
+- RDP access to sensitive servers
+
+---
+
+## Kerberos Authentication Events
+
+In Active Directory environments, Kerberos events become very important.
+
+- Event ID : **4768 → Kerberos Ticket Granting Ticket (TGT) requested.**
+- Event ID : **4769 → Kerberos service ticket requested.**
+- Event ID : **4771 → Kerberos pre-authentication failed.**
+
+These logs help detect:
+
+- Kerberoasting
+- Password attacks
+- Suspicious ticket requests
+- Lateral movement
+
+Example indicator:
+- Large number of ``4769`` requests targeting service accounts.
+
+---
+
+## Detecting Brute Force Activity 
+
+A brute-force attack is a technique where an attacker repeatedly tries multiple passwords against a user account until the correct password is found
+
+Common brute-force indicators:
+
+- Large number of ``4625`` events
+- Same source IP targeting many accounts
+- Repeated failures against a single account
+- Successful ``4624`` immediately after failures
+
+For example:
+
+```text
+50x Event ID ``4625`` from ``192.168.1.50`` followed by Event ID ``4624`` **→ Possible successful brute-force compromise**
+```
+
+SOC analysts should correlate timestamps, usernames, and source IP addresses to identify attack patterns.
+
+---
+
+## Detecting Password Spraying Activity
+
+Password spraying is different from traditional brute-force attacks. Instead of trying many passwords against a single account, attackers attempt to use one common password against many different usernames.
+
+Common indicators of password spraying include:
+
+- Authentication attempts targeting many different usernames
+- Same source IP address involved in multiple failures
+- Small number of attempts per account
+- Similar timestamps between events
+- Repeated Event ID ``4625`` entries across multiple users
+
+For example: 
+
+```text
+Instead of attacking one account repeatedly: admin → 50 passwords
+
+Attackers may attempt: 50 usernames → Password123
+
+```
+
+---
+
+## Detecting Lateral Movement
+
+Lateral movement occurs when an attacker moves from one system to another after gaining initial access to the environment. Instead of staying on a single compromised machine, attackers use legitimate authentication protocols and administrative tools to access additional hosts, escalate privileges, and reach sensitive systems.
+
+Common attacker techniques include:
+
+- SMB access
+- Remote Desktop Protocol (RDP)
+- PsExec
+- WMI
+- WinRM
+- Remote service creation
+
+Suspicious indicators may include:
+
+- Same account authenticating to multiple hosts in a short period
+- Logon Type 3 events across several systems
+- Logon Type 10 (RDP) access to sensitive servers
+- Administrative accounts authenticating outside normal working hours
+- Explicit credential usage events (4648)
+- Privileged logons (4672) appearing after remote access
+
+Example investigation scenario:
+
+```text
+4624 Logon Type 3 detected on SERVER-01
+→ Same account authenticates to SERVER-02
+→ 4648 explicit credentials used
+→ 4672 privileged session created
+→ 4688 PowerShell execution detected
+```

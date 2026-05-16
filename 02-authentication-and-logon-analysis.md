@@ -96,7 +96,7 @@ Important investigation questions:
 Example correlation:
 
 - ``4672`` : A privileged session was established with administrative rights.
-- ``4688`` : A new cmd.exe process was created containing suspicious activity.
+- ``4688`` : A new ``cmd.exe`` process was created containing suspicious activity.
 - ``7045`` : A suspicious service was installed on the system.
 
 ---

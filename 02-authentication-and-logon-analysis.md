@@ -95,9 +95,9 @@ Important investigation questions:
 
 Example correlation:
 
-- 4672 privileged session
-- 4688 cmd.exe
-- 7045 malicious service installed****
+- ``4672`` : A privileged session was established with administrative rights.
+- ``4688`` : A new cmd.exe process was created containing suspicious activity.
+- ``7045`` : A suspicious service was installed on the system.
 
 ---
 

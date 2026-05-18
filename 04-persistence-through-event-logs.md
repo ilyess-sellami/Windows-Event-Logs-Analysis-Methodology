@@ -133,3 +133,139 @@ Example suspicious registry value:
 ```bash
 Updater = C:\Users\John\AppData\Roaming\payload.exe
 ```
+
+---
+
+## Startup Folder Persistence
+
+Windows Startup folders automatically execute files when users log into the system. Attackers abuse these folders to launch malware, scripts, or malicious shortcuts during startup.
+
+Common Startup folder location:
+
+```bash
+C:\Users\<user>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\
+```
+
+Attackers may place:
+
+- Executables
+- Batch scripts
+- PowerShell launchers
+- Malicious ``.lnk`` shortcut files
+
+Detection methodology includes analyzing:
+
+- File creation activity
+- Process execution events (``4688``)
+- Suspicious shortcut targets
+- Recently modified Startup folder files
+
+---
+
+## WMI Event Subscription Persistence
+
+Windows Startup folders automatically execute files when users log into the system. Attackers abuse these folders to launch malware, scripts, or malicious shortcuts during startup.
+
+Common Startup folder location:
+
+```bash
+C:\Users\<user>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\
+```
+
+Attackers may place:
+
+- Executables
+- Batch scripts
+- PowerShell launchers
+- Malicious ``.lnk`` shortcut files
+
+Detection methodology includes analyzing:
+
+- File creation activity
+- Process execution events (``4688``)
+- Suspicious shortcut targets
+- Recently modified Startup folder files
+
+---
+
+## WMI Event Subscription Persistence
+
+Windows Management Instrumentation (WMI) can be abused to create stealthy persistence mechanisms that automatically execute malicious code when specific system events occur. Advanced attackers prefer WMI because it is difficult to detect and often bypasses traditional startup monitoring.
+
+Common WMI persistence components include:
+
+- Event Filters
+- Event Consumers
+- Filter-to-Consumer Bindings
+
+Suspicious activity may generate:
+
+- PowerShell execution logs
+- WMI operational logs
+- Process creation events (``4688``)
+
+Investigators should look for:
+
+- Unknown WMI consumers
+- PowerShell spawned through WMI
+- Event-triggered script execution
+- Suspicious persistence without obvious startup entries
+
+---
+
+## PowerShell-Based Persistence
+
+Attackers commonly use PowerShell for persistence because it is built into Windows and provides powerful automation capabilities. Malicious PowerShell persistence can execute scripts silently during startup or user authentication.
+
+Common techniques include:
+
+- PowerShell profiles
+- Encoded startup commands
+- Scheduled PowerShell execution
+- Registry-based PowerShell launchers
+
+Important events include:
+
+| Event ID | Description                     |
+| -------- | ------------------------------- |
+| 4104     | PowerShell script block logging |
+| 4688     | Process creation                |
+
+Suspicious indicators may include:
+
+- ExecutionPolicy Bypass
+- Encoded commands
+- Base64 strings
+- Hidden PowerShell windows
+- PowerShell execution during startup
+
+Example suspicious command:
+
+```powershell
+powershell.exe -enc SQBFAFgA(...)
+```
+
+---
+
+## DLL Hijacking Persistence
+
+DLL hijacking occurs when attackers place malicious DLL files in locations where legitimate applications will automatically load them. This allows malicious code to execute whenever the targeted application starts.
+
+Attackers abuse this technique because:
+
+- DLL loading is normal Windows behavior
+- Malicious DLLs may appear legitimate
+- Execution occurs indirectly through trusted applications
+
+Detection methodology includes analyzing:
+
+- Process creation events (4688)
+- Sysmon image load events
+- Unusual DLL paths
+- Applications loading DLLs from writable directories
+
+Suspicious indicators:
+
+- DLLs inside ``Temp`` or user directories
+- Legitimate applications loading unknown modules
+- Recently dropped DLL files before malware execution

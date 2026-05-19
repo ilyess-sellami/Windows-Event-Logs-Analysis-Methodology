@@ -21,4 +21,3 @@ A structured DFIR guide focused on identifying, collecting, and analyzing Window
 7. [PowerShell & Script Block Analysis](07-powershell-and-script-block-analysis.md)
 8. [C2 Communication Detection (Event Logs View)](08-c2-and-suspicious-network-behavior.md)
 9. [Timeline Correlation (CORE DFIR SKILL)](09-timeline-correlation-with-event-logs.md)
-10. [Incident Case Study (MAKE THIS POWERFUL)](10-incident-case-study.md)
